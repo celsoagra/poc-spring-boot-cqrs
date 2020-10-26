@@ -1,13 +1,17 @@
 package io.celsoagra.command.service;
 
-import org.springframework.amqp.core.Queue;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.celsoagra.command.dto.UpdateCustomerDTO;
 import io.celsoagra.command.entity.Customer;
 
 /**
@@ -25,13 +29,26 @@ public class CustomerMQSender {
 	@Autowired
 	private ObjectMapper objectMapper;
  
-    @Autowired
-    private Queue queue;
+	@Value("${queue.name}")
+    private String queueName;
+	
+	@Value("${queue.name.update}")
+    private String queueNameUpdate;
  
     public void send(Customer customer) throws JsonProcessingException {
     	String info = objectMapper.writeValueAsString(customer);
     	
-        rabbitTemplate.convertAndSend(this.queue.getName(), info);
+        rabbitTemplate.convertAndSend(queueName, info);
+    }
+    
+    public void sendAnUpdate(Long id, UpdateCustomerDTO dto) throws JsonProcessingException {
+    	Map map = new HashMap<String, String>();
+    	map.put("id", id);
+    	map.put("name", dto.getName());
+    	
+    	String info = objectMapper.writeValueAsString(map);
+    	
+        rabbitTemplate.convertAndSend(queueNameUpdate, info);
     }
 
 }

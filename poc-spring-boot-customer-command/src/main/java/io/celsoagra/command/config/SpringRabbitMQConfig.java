@@ -11,11 +11,23 @@ public class SpringRabbitMQConfig {
 	@Value("${queue.name}")
     private String queueName;
 	
+	@Value("${queue.name.update}")
+    private String queueNameUpdate;
+	
 	@Value("${queue.name.dlq}")
     private String queueNameDLQ;
 
 	@Bean
     public Queue queue() {
+		Queue queue = new Queue(queueName, true);
+		queue.addArgument("x-dead-letter-exchange", ""); // defaultExchange
+		queue.addArgument("x-dead-letter-routing-key", queueNameDLQ);
+		queue.addArgument("x-message-ttl", 5000);
+		return queue;
+    }
+	
+	@Bean
+    public Queue queueUpdate() {
 		Queue queue = new Queue(queueName, true);
 		queue.addArgument("x-dead-letter-exchange", ""); // defaultExchange
 		queue.addArgument("x-dead-letter-routing-key", queueNameDLQ);

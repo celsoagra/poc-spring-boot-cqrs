@@ -1,5 +1,8 @@
 package io.celsoagra.command.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,12 +50,15 @@ public class CustomerService {
 		clienteRepository.deleteById(id);
 	}
 
-	public Customer update(Long id, UpdateCustomerDTO dto) throws NotFoundException {
+	public Customer update(Long id, UpdateCustomerDTO dto) throws NotFoundException, JsonProcessingException {
 		Customer cliente = clienteRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Cliente não encontrado."));
 		cliente.setName(dto.getName());
 
-		return clienteRepository.save(cliente);
+		Customer updated = clienteRepository.save(cliente);
+		
+		this.mqSender.sendAnUpdate(id, dto);
+		return updated;
 	}
 
 	public Customer findByName(String name) throws NotFoundException {

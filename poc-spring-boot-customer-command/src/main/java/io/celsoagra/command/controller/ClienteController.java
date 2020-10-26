@@ -47,32 +47,10 @@ public class ClienteController {
 		return service.create(dto);
 	}
 
-	@ApiOperation(value = "Consulta um cliente por nome")
-	@GetMapping(path = "/find", produces = MediaType.APPLICATION_JSON_VALUE, params = { "name" })
-	private Customer findByName(@RequestParam(required = true) String name) throws NotFoundException {
-		return service.findByName(name);
-	}
-
-	@ApiOperation(value = "Consulta um cliente por id")
-	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	private Customer findById(@PathVariable(required = true) Long id) throws NotFoundException {
-		return service.findById(id);
-	}
-
-	@ApiOperation(value = "Remove um cliente do sistema")
-	@DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	private Map<String, String> remove(@PathVariable(required = true) Long id) throws NotFoundException {
-		service.delete(id);
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("msg", "Cliente removido do cadastro.");
-		return map;
-	}
-
 	@ApiOperation(value = "Altera o nome do cliente")
 	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	private Customer cadastrar(@PathVariable(required = true) Long id, @Valid @RequestBody UpdateCustomerDTO dto)
-			throws NotFoundException {
+			throws NotFoundException, JsonProcessingException {
 		return service.update(id, dto);
 	}
 

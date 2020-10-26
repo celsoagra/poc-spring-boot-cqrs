@@ -14,4 +14,6 @@ import io.celsoagra.ingest.entity.Customer;
  */
 public interface CustomerRepository extends MongoRepository<Customer, String> {
 
+	
+	
 }
