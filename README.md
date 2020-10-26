@@ -50,3 +50,22 @@ java -jar -Dspring.profiles.active=prod target/app-0.0.1-SNAPSHOT.jar
 ### Licença
 
 [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
+
+### Ambientes
+
+Executar os seguintes ambientes:
+
+**RabbitMQ:**
+```
+docker run --name amq -p 15672:15672 -p 5672:5672 -d rabbitmq:3.8.9-management-alpine
+```
+
+**MongoDB:**
+```
+ docker run --name mongodb -p 27017:27017 -d mongo:4.0.20-xenial
+```
+
+### Arquitetura
+
+![Arquitetura](docs/assets/img/architecture.jpg)
+

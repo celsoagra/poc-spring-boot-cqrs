@@ -1,5 +1,7 @@
 package io.celsoagra.query.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,8 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	public Customer findByName(String name) throws Exception {
+	public List<Customer> findByName(String name) throws Exception {
 		
-		return customerRepository.findOneByNameContainingIgnoreCase(name)
-				.orElseThrow(() -> new Exception("Cliente não encontrado."));
+		return customerRepository.findOneByNameContainingIgnoreCase(name);
 	}
 }

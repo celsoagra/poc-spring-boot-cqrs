@@ -1,6 +1,6 @@
 package io.celsoagra.query.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -14,6 +14,6 @@ import io.celsoagra.query.entity.Customer;
  */
 public interface CustomerRepository extends MongoRepository<Customer, String> {
 
-	Optional<Customer> findOneByNameContainingIgnoreCase(String name);
+	List<Customer> findOneByNameContainingIgnoreCase(String name);
 
 }
