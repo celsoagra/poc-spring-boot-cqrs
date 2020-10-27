@@ -41,11 +41,19 @@ public class CustomerMQSender {
         rabbitTemplate.convertAndSend(queueName, info);
     }
     
-    public void sendAnUpdate(Long id, UpdateCustomerDTO dto) throws JsonProcessingException {
+    public void sendAndUpdate(Long id, UpdateCustomerDTO dto) throws JsonProcessingException {
     	Map map = new HashMap<String, String>();
     	map.put("id", id);
     	map.put("name", dto.getName());
     	
+    	String info = objectMapper.writeValueAsString(map);
+    	
+        rabbitTemplate.convertAndSend(queueNameUpdate, info);
+    }
+    
+    public void sendAndRemove(Customer customer) throws JsonProcessingException {
+    	Map map = new HashMap<String, String>();
+    	map.put("id", customer.getId());	
     	String info = objectMapper.writeValueAsString(map);
     	
         rabbitTemplate.convertAndSend(queueNameUpdate, info);

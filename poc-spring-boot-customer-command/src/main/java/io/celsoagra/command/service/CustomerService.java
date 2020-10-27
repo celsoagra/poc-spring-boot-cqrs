@@ -45,9 +45,11 @@ public class CustomerService {
 		return saved;
 	}
 
-	public void delete(Long id) throws NotFoundException {
-		clienteRepository.findById(id).orElseThrow(() -> new NotFoundException("Cliente não encontrado."));
+	public void delete(Long id) throws NotFoundException, JsonProcessingException {
+		Customer customer = clienteRepository.findById(id).orElseThrow(() -> new NotFoundException("Cliente não encontrado."));
 		clienteRepository.deleteById(id);
+	
+		this.mqSender.sendAndRemove(customer);
 	}
 
 	public Customer update(Long id, UpdateCustomerDTO dto) throws NotFoundException, JsonProcessingException {
@@ -57,7 +59,7 @@ public class CustomerService {
 
 		Customer updated = clienteRepository.save(cliente);
 		
-		this.mqSender.sendAnUpdate(id, dto);
+		this.mqSender.sendAndUpdate(id, dto);
 		return updated;
 	}
 

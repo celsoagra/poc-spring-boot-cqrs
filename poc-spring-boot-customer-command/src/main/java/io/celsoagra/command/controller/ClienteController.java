@@ -54,4 +54,14 @@ public class ClienteController {
 		return service.update(id, dto);
 	}
 
+	@ApiOperation(value = "Remove um cliente do sistema")
+	@DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	private Map<String, String> remove(@PathVariable(required = true) Long id) throws NotFoundException, JsonProcessingException {
+		service.delete(id);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("msg", "Cliente removido do cadastro.");
+		return map;
+	}
+
 }
