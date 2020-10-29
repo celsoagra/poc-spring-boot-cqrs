@@ -38,7 +38,7 @@ public class MockitoAnnotationTest {
 
     @BeforeEach
     void setMockOutput() throws JsonProcessingException {
-    	Customer customer = new Customer("teste", Gender.M, LocalDate.now());
+    	Customer customer = new Customer("teste", Gender.M, LocalDate.now(), "recife");
     	Mockito.when(customerRepository.save(Mockito.any())).thenReturn(customer);
     	Mockito.doNothing().when(mqSender).send(Mockito.any());
     	
@@ -55,7 +55,7 @@ public class MockitoAnnotationTest {
     
     @Test
     public void add() throws JsonProcessingException, NotFoundException {
-    	CreateCustomerDTO dto = new CreateCustomerDTO("Celso", Gender.M.toString(), LocalDate.now());
+    	CreateCustomerDTO dto = new CreateCustomerDTO("Celso", Gender.M.toString(), LocalDate.now(), "recife");
     	Customer c = customerService.create(dto);
      
         assertEquals("teste", c.getName());

@@ -30,15 +30,19 @@ public class CreateCustomerDTO {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate bithdate;
 
+	@NotNull
+	private String city;
+
 	public CreateCustomerDTO() {
 
 	}
 
-	public CreateCustomerDTO(String name, String gender, LocalDate bithdate) {
+	public CreateCustomerDTO(String name, String gender, LocalDate bithdate, String city) {
 		super();
 		this.name = name;
 		this.gender = gender;
 		this.bithdate = bithdate;
+		this.city = city;
 	}
 
 	public String getName() {
@@ -63,6 +67,14 @@ public class CreateCustomerDTO {
 
 	public void setBithdate(LocalDate bithdate) {
 		this.bithdate = bithdate;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	@Override

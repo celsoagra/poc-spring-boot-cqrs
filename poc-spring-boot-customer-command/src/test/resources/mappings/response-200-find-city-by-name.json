@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/city/find?name=recife"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": { "name" : "recife", "state" : "PE" },
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

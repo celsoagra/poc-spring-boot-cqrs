@@ -39,13 +39,13 @@ class CRUDTests {
 	@Order(2)
 	@Test
 	void cadastrando_clientes() {
-		Customer celso = new Customer("Celso Agra", Gender.M, LocalDate.of(1988, Month.JULY, 26));
+		Customer celso = new Customer("Celso Agra", Gender.M, LocalDate.of(1988, Month.JULY, 26), "recife");
 		celso = customerRepository.save(celso);
 
-		Customer debora = new Customer("Debora Cole", Gender.F, LocalDate.of(1990, Month.APRIL, 20));
+		Customer debora = new Customer("Debora Cole", Gender.F, LocalDate.of(1990, Month.APRIL, 20), "passo fundo");
 		customerRepository.save(debora);
 
-		Customer sergio = new Customer("Sergio Faria", Gender.M, LocalDate.of(1986, Month.DECEMBER, 12));
+		Customer sergio = new Customer("Sergio Faria", Gender.M, LocalDate.of(1986, Month.DECEMBER, 12), "passo fundo");
 		customerRepository.save(sergio);
 
 		assertEquals(3, customerRepository.count());

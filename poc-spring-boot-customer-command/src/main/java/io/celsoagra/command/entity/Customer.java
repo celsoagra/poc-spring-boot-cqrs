@@ -46,6 +46,10 @@ public class Customer {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthdate;
 
+	@NotNull
+	@Length(min = 2, max = 30, message = "The name must be greater than {min} and less than {max} characters.")
+	private String city;
+
 	/**
 	 * informação apenas para realizar o calculo da idade do cliente. Não necessita
 	 * armazenar estado
@@ -57,11 +61,12 @@ public class Customer {
 
 	}
 
-	public Customer(String name, Gender gender, LocalDate birthdate) {
+	public Customer(String name, Gender gender, LocalDate birthdate, String city) {
 		super();
 		this.name = name;
 		this.gender = gender;
 		this.birthdate = birthdate;
+		this.city = city;
 	}
 
 	public String getName() {
@@ -97,6 +102,14 @@ public class Customer {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	@Override
